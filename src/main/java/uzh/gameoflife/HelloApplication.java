@@ -11,13 +11,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.controlsfx.control.spreadsheet.Grid;
 import org.controlsfx.validation.ValidationResult;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class HelloApplication extends Application {
-
+    VBox gridLayout = new VBox();
     @Override
     public void start(Stage primaryStage){
         GameController g1 = GameController.getInstance();
@@ -58,7 +59,7 @@ public class HelloApplication extends Application {
         /*
         * create second grid layout
         * */
-        VBox gridLayout = new VBox();
+
 
         Color newColor = Color.GREY;
         Background background = new Background(new BackgroundFill(newColor, CornerRadii.EMPTY, Insets.EMPTY));
@@ -105,5 +106,31 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    private void updateGrid(){
+
+        gridLayout.getChildren().clear();
+
+        for(int x = 0; x < 50; x++){
+            for(int y = 0; y < 50; y++){
+
+                String value = gameOfLife.currentState(x,y) ? "black" : "white";
+                Pane pane = new Pane();
+                pane.setPrefSize(1000,1000);
+
+
+                pane.setStyle("-fx-background-color: "+ value);
+
+                int finalX = x;
+                int finalY = y;
+                pane.setOnMouseClicked(event -> {
+                    Object node = event.getSource();
+                    changeCellState(finalX, finalY,(Node)node);
+                });
+
+                gameField.add( pane   , x, y  );
+            }
+        }
     }
 }
