@@ -101,7 +101,6 @@ public class HelloApplication extends Application {
                         System.out.println("changed to blue");
                         System.out.println(finalX + " " + finalY);
                     }
-
                 });
                 grid.add(pane,x,y);
             }
