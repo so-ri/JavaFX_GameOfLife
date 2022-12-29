@@ -38,13 +38,18 @@ public class HelloApplication extends Application {
 
         //setup basic layout including points
         GridPane grid = new GridPane();
-        Label label = new Label("Label");
+        Label label = new Label("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
         label.setFont(Font.font(25));
         Neighbors currentPoints = g1.getCurrentPoints();
         Label points = new Label("Points of Blue Player: " + currentPoints.Blues + " Points of Red Player: " + currentPoints.Reds);
         Label genPoints = new Label("Generations: " + g1.getNumGeneration());
         label.setTextFill(Color.RED);
 
+        //check if over
+        if (g1.isOver()) {
+            label.setFont(Font.font(25));
+            label.setText(g1.whoHasWon() + " HAS WON!");
+        }
         // print the grid and decide the color of the pane
         for(int x = 0; x < 50; x++){
             for(int y = 0; y < 50; y++){
@@ -53,13 +58,6 @@ public class HelloApplication extends Application {
                 cellStatus value = g1.getStatus(x,y);
                 Pane pane = new Pane();
                 pane.setPrefSize(1000,1000);
-
-                label.setText("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
-
-                if (g1.isOver()) {
-                    label.setFont(Font.font(25));
-                    label.setText(g1.whoHasWon() + " HAS WON!");
-                }
 
                 switch (value){
                     case RED -> pane.setStyle("-fx-background-color: RED");
