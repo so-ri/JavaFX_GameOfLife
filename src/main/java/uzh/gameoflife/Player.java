@@ -3,7 +3,7 @@ import uzh.gameoflife.Cell.Neighbors;
 
 public class Player implements Comparable<Player> {
 
-    //necessary for turn handling in HelloApplication.update(), is public because it would not matter having setters and getters here.
+    //necessary for turn handling in JavaFXMain.update(), is public because it would not matter having setters and getters here.
     public boolean hasKilledEnemy;
     public boolean spawnedCell;
     private int numFields = 12;

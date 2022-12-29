@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import uzh.gameoflife.Cell.Neighbors;
 import uzh.gameoflife.Cell.cellStatus;
 
-public class HelloApplication extends Application {
+public class JavaFXMain extends Application {
     private final GameController g1 = GameController.getInstance();
     private final VBox layout = new VBox();
 

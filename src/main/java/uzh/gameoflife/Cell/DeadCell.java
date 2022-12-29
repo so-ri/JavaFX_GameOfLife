@@ -2,6 +2,8 @@ package uzh.gameoflife.Cell;
 
 public class DeadCell implements Cell {
     private cellStatus nextState;
+
+    //chooses next state according to game rules
     @Override
     public void nextState(Neighbors neighbors) {
         if((neighbors.sum) == 3 && neighbors.Blues >= 2) nextState = cellStatus.BLUE;

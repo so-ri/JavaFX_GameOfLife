@@ -19,24 +19,24 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void login(String name1, String name2, HelloApplication helloApplication){
+    public void login(String name1, String name2, JavaFXMain helloApplication){
         players[0].receiveName(name1);
         players[1].receiveName(name2);
         this.startGame(helloApplication);
     }
 
-    public void startGame(HelloApplication GUI){
+    public void startGame(JavaFXMain GUI){
         Arrays.sort(players);                        //decide starting player
         GUI.updateGrid(true, players[0]);       //entry point
     }
 
     //after a Turn of the blue player, the other color's Move is being called. splitting it up into two functions helps with giving over less variables.
-    public void blueMove(HelloApplication GUI){
+    public void blueMove(JavaFXMain GUI){
         board.update();
         board.nextGeneration();
         GUI.updateGrid(true, players[0]);
     }
-    public void redMove(HelloApplication GUI) {
+    public void redMove(JavaFXMain GUI) {
         board.update();
         board.nextGeneration();
         GUI.updateGrid(false, players[1]);
