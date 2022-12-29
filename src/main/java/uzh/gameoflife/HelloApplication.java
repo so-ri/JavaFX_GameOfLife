@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.controlsfx.control.spreadsheet.Grid;
 import org.controlsfx.validation.ValidationResult;
+import uzh.gameoflife.Cell.Neighbors;
 import uzh.gameoflife.Cell.cellStatus;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class HelloApplication extends Application {
     private GameController g1 = GameController.getInstance();
     private VBox layout = new VBox();
-
+    private Neighbors lastHit = new Neighbors(1000,1000);
 
     @Override
     public void start(Stage primaryStage){
@@ -65,12 +66,11 @@ public class HelloApplication extends Application {
                 int finalY = y;
                 pane.setOnMouseClicked(event -> {
 
-                    //Checks friendly fire
-
+                    //input validation
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");
                     else if ((blue && value == cellStatus.RED || !blue && value == cellStatus.BLUE)
-                     && player.hasKilledEnemy)
+                     && player.hasKilledEnemy && !((lastHit.Reds == finalX) && (lastHit.Blues == finalY)))
                         label.setText("You already killed an opponent cell");
                     else if (player.spawnedCell && value == cellStatus.DEAD)
                         label.setText("You already spawned a cell");
@@ -79,10 +79,13 @@ public class HelloApplication extends Application {
                         if(value == cellStatus.DEAD) {
                             g1.changeCellStatus(finalX, finalY, cellStatus.RED);
                             player.spawnedCell = true;
+                            pane.setStyle("-fx-background-color: RED");
                         }
                         else {
                             g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
                             player.hasKilledEnemy = true;
+                            lastHit = new Neighbors(finalX, finalY);
+                            pane.setStyle("-fx-background-color: WHITE");
                         }
                         if(player.moveDone()) g1.blueMove(this);
                         System.out.println("changed to red");
@@ -92,10 +95,13 @@ public class HelloApplication extends Application {
                         if(value == cellStatus.DEAD) {
                             g1.changeCellStatus(finalX, finalY, cellStatus.BLUE);
                             player.spawnedCell = true;
+                            pane.setStyle("-fx-background-color: BLUE");
                         }
                         else {
                             g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
                             player.hasKilledEnemy = true;
+                            lastHit = new Neighbors(finalX, finalY);
+                            pane.setStyle("-fx-background-color: WHITE");
                         }
                         if(player.moveDone()) g1.redMove(this);
                         System.out.println("changed to blue");

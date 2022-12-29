@@ -1,10 +1,14 @@
 package uzh.gameoflife;
 
+import uzh.gameoflife.Cell.Neighbors;
+
 public class Player implements Comparable<Player> {
 
     public boolean hasKilledEnemy;
     public boolean spawnedCell;
     private int numFields;
+
+    public Neighbors EnemyHit; //no neighbors here - just too lazy to rename the 2 int tuple
     private String name;
     public void receiveNumCells(int cells){
         this.numFields = cells;
@@ -22,9 +26,6 @@ public class Player implements Comparable<Player> {
     public String getName() {
         return name;
     }
-
-    public boolean getHasKilledEnemy(){ return hasKilledEnemy;}
-    public void setHasKilledEnemy(boolean state){this.hasKilledEnemy = state;}
 
     public boolean moveDone() {
         return spawnedCell && hasKilledEnemy;
