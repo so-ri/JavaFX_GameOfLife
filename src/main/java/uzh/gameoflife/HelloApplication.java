@@ -70,7 +70,7 @@ public class HelloApplication extends Application {
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");
                     else if ((blue && value == cellStatus.RED || !blue && value == cellStatus.BLUE)
-                     && player.hasKilledEnemy && !((lastHit.Reds == finalX) && (lastHit.Blues == finalY)))
+                     && player.hasKilledEnemy && !((player.EnemyHit.Reds == finalX) && (player.EnemyHit.Blues == finalY)))
                         label.setText("You already killed an opponent cell");
                     else if (player.spawnedCell && value == cellStatus.DEAD)
                         label.setText("You already spawned a cell");
@@ -82,10 +82,18 @@ public class HelloApplication extends Application {
                             pane.setStyle("-fx-background-color: RED");
                         }
                         else {
-                            g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
-                            player.hasKilledEnemy = true;
-                            lastHit = new Neighbors(finalX, finalY);
-                            pane.setStyle("-fx-background-color: WHITE");
+                            if(player.EnemyHit.Blues != 1000) {
+                                g1.changeCellStatus(finalX, finalY, cellStatus.RED);
+                                player.spawnedCell = true;
+                                pane.setStyle("-fx-background-color: RED");
+                                player.EnemyHit = new Neighbors(1000,1000);//reset it
+                            }
+                            else {
+                                g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
+                                player.hasKilledEnemy = true;
+                                player.EnemyHit = new Neighbors(finalX, finalY);
+                                pane.setStyle("-fx-background-color: WHITE");
+                            }
                         }
                         if(player.moveDone()) g1.blueMove(this);
                         System.out.println("changed to red");
@@ -98,10 +106,18 @@ public class HelloApplication extends Application {
                             pane.setStyle("-fx-background-color: BLUE");
                         }
                         else {
-                            g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
-                            player.hasKilledEnemy = true;
-                            lastHit = new Neighbors(finalX, finalY);
-                            pane.setStyle("-fx-background-color: WHITE");
+                            if (player.EnemyHit.Blues != 1000) { //then it is not a red cell that gets killed but a red cell being killed + blue-ed
+                                g1.changeCellStatus(finalX, finalY, cellStatus.BLUE);
+                                player.spawnedCell = true;
+                                pane.setStyle("-fx-background-color: BLUE");
+                                player.EnemyHit = new Neighbors(1000,1000);//reset it
+                            }
+                            else {
+                                g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
+                                player.hasKilledEnemy = true;
+                                player.EnemyHit = new Neighbors(finalX, finalY);
+                                pane.setStyle("-fx-background-color: WHITE");
+                            }
                         }
                         if(player.moveDone()) g1.redMove(this);
                         System.out.println("changed to blue");

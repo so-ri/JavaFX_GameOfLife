@@ -8,7 +8,7 @@ public class Player implements Comparable<Player> {
     public boolean spawnedCell;
     private int numFields;
 
-    public Neighbors EnemyHit; //no neighbors here - just too lazy to rename the 2 int tuple
+    public Neighbors EnemyHit = new Neighbors(1000,1000); //no neighbors here - just too lazy to rename the 2 int tuple
     private String name;
     public void receiveNumCells(int cells){
         this.numFields = cells;
