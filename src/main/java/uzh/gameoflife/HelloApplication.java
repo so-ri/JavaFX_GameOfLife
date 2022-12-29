@@ -48,8 +48,8 @@ public class HelloApplication extends Application {
         label.setTextFill(Color.RED);
         label.setBackground(Background.fill(Color.LIGHTPINK));
 
-        for(short x = 0; x < 50; x++){
-            for(short y = 0; y < 50; y++){
+        for(int x = 0; x < 50; x++){
+            for(int y = 0; y < 50; y++){
 
                 cellStatus value = g1.getStatus(x,y);
                 Pane pane = new Pane();
@@ -61,8 +61,8 @@ public class HelloApplication extends Application {
                     case DEAD -> pane.setStyle("-fx-background-color: WHITE");
                 }
 
-                short finalX = x;
-                short finalY = y;
+                int finalX = x;
+                int finalY = y;
                 pane.setOnMouseClicked(event -> {
 
                     //Checks friendly fire
@@ -84,6 +84,7 @@ public class HelloApplication extends Application {
                             g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
                             player.hasKilledEnemy = true;
                         }
+                        if(player.moveDone()) g1.blueMove(this);
                         System.out.println("changed to red");
                         System.out.println(finalX + " " + finalY);
                     }
@@ -96,6 +97,7 @@ public class HelloApplication extends Application {
                             g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
                             player.hasKilledEnemy = true;
                         }
+                        if(player.moveDone()) g1.redMove(this);
                         System.out.println("changed to blue");
                         System.out.println(finalX + " " + finalY);
                     }
@@ -106,6 +108,7 @@ public class HelloApplication extends Application {
         }
         grid.setGridLinesVisible(true);
         layout.getChildren().addAll(label,grid);
+
     }
 
     private void login(){

@@ -1,12 +1,12 @@
 package uzh.gameoflife;
 
-public class Player {
+public class Player implements Comparable<Player> {
 
     public boolean hasKilledEnemy;
     public boolean spawnedCell;
-    private short numFields;
+    private int numFields;
     private String name;
-    public void receiveNumCells(short cells){
+    public void receiveNumCells(int cells){
         this.numFields = cells;
     }
 
@@ -26,6 +26,13 @@ public class Player {
     public boolean getHasKilledEnemy(){ return hasKilledEnemy;}
     public void setHasKilledEnemy(boolean state){this.hasKilledEnemy = state;}
 
+    public boolean moveDone() {
+        return spawnedCell && hasKilledEnemy;
+    }
+    @Override
+    public int compareTo(Player otherPlayer){
+        return this.name.compareTo(otherPlayer.name);
+    }
 
 
 }
