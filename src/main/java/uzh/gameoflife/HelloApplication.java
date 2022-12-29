@@ -21,35 +21,30 @@ import java.util.Objects;
 
 public class HelloApplication extends Application {
     private GameController g1 = GameController.getInstance();
+    private VBox layout = new VBox();
+
+
     @Override
     public void start(Stage primaryStage){
 
         //setting up new scene
-        Scene scene = login();
-        gridLayout.getChildren().add(updateGrid(g1));
-        //present scene
-        primaryStage.setScene(scene);
+        primaryStage.setScene(new Scene(layout,700,700 ));
+        login(); // takes name via login and starts grid
         primaryStage.show();
 
-
-        /*
-         *
-         * flowhandling
-         *
-         * */
-
-
     }
-    VBox gridLayout = new VBox();
+
 
     public static void main(String[] args) {
         launch();
     }
 
-    private GridPane updateGrid(GameController g1){
-
-        gridLayout.getChildren().clear();
+    public void updateGrid(Boolean blue, Player player){
+        player.spawnedCell = false;
+        player.hasKilledEnemy = false;
+        layout.getChildren().clear();
         GridPane grid = new GridPane();
+        Label label = new Label("Label");
 
         for(short x = 0; x < 50; x++){
             for(short y = 0; y < 50; y++){
@@ -64,21 +59,54 @@ public class HelloApplication extends Application {
                     case DEAD -> pane.setStyle("-fx-background-color: WHITE");
                 }
 
-
                 short finalX = x;
                 short finalY = y;
                 pane.setOnMouseClicked(event -> {
-                    //Object node = event.getSource(); this would return the current node on which the event was fired upon
-                    g1.changeCellStatus(finalX, finalY, cellStatus.RED);
+
+                    //Checks friendly fire
+
+                    if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
+                        label.setText("You cant kill your own cell!");
+                    else if ((blue && value == cellStatus.RED || !blue && value == cellStatus.BLUE)
+                     && player.hasKilledEnemy)
+                        label.setText("You already killed an opponent cell");
+                    else if (player.spawnedCell && value == cellStatus.DEAD)
+                        label.setText("You already spawned a cell");
+
+                    else if (!blue){
+                        if(value == cellStatus.DEAD) {
+                            g1.changeCellStatus(finalX, finalY, cellStatus.RED);
+                            player.spawnedCell = true;
+                        }
+                        else {
+                            g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
+                            player.hasKilledEnemy = true;
+                        }
+                        System.out.println("changed to red");
+                        System.out.println(finalX + " " + finalY);
+                    }
+                    else if (blue){
+                        if(value == cellStatus.DEAD) {
+                            g1.changeCellStatus(finalX, finalY, cellStatus.BLUE);
+                            player.spawnedCell = true;
+                        }
+                        else {
+                            g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
+                            player.hasKilledEnemy = true;
+                        }
+                        System.out.println("changed to blue");
+                        System.out.println(finalX + " " + finalY);
+                    }
+                    
                 });
                 grid.add(pane,x,y);
             }
         }
         grid.setGridLinesVisible(true);
-        return grid;
+        layout.getChildren().addAll(label,grid);
     }
 
-    private Scene login(){
+    private void login(){
 
         /*
          * Layout & scene for login
@@ -99,26 +127,26 @@ public class HelloApplication extends Application {
         errorLabel.setTextFill(Color.RED);
 
         //new login layout & adding all elements onto it
-        VBox layout = new VBox();
+
         layout.getChildren().addAll(label0, textField_name_0);
         layout.setSpacing(10);
         layout.getChildren().addAll(label1, textField_name_1);
         layout.setSpacing(10);
         layout.getChildren().addAll(loginbtn, errorLabel);
 
-        Scene scene = new Scene(layout, 1000, 1000);
 
         //login button to second grid layout
+
         loginbtn.setOnAction(e -> {
             String txtfield0 = textField_name_0.getText();
             String txtfield1 = textField_name_1.getText();
 
             if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter something meaningful");
             else {
-                g1.login(txtfield0,txtfield1);
-                //scene.setRoot(gridLayout);
+                g1.login(txtfield0,txtfield1,this);
             }
         });
-        return scene;
 }
+
+
 }

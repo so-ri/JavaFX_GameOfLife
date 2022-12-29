@@ -28,7 +28,8 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void startGame(){            //gameflow
+    public void startGame(HelloApplication GUI){            //gameflow
+
         byte winner;
         byte starter = 0;
         byte other = 1;
@@ -40,12 +41,12 @@ public class GameController {
 
         //Iterations
         while(true) {
-            board.playerMove(players[starter]);
+
+            GUI.updateGrid(true, players[starter]);
             board.update();
-            //board.nextGeneration();
             if(players[starter].hasWon()) {winner = starter; break;}
 
-            board.playerMove(players[other]);
+            GUI.updateGrid(false, players[other]);
             board.update();
             //board.nextGeneration();
             if(players[other].hasWon()) {winner = other; break;}
@@ -61,10 +62,11 @@ public class GameController {
         board.nextGeneration();
     }
 
-    public void login(String name1, String name2){
+    public void login(String name1, String name2, HelloApplication helloApplication){
         players[0].receiveName(name1);
         players[1].receiveName(name2);
-        this.startGame();
+        this.startGame(helloApplication);
+
     }
 
 }
