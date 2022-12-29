@@ -46,6 +46,7 @@ public class HelloApplication extends Application {
         GridPane grid = new GridPane();
         Label label = new Label("Label");
         label.setTextFill(Color.RED);
+        label.setBackground(Background.fill(Color.LIGHTPINK));
 
         for(short x = 0; x < 50; x++){
             for(short y = 0; y < 50; y++){
