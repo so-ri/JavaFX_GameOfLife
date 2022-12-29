@@ -32,7 +32,6 @@ public class GameBoard {
                 board[i][j].nextState(getNext(i,j));
             }
         }
-
     }
 
     public void nextGeneration() {      //generates new generation of cells (with updated states)

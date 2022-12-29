@@ -1,7 +1,7 @@
 package uzh.gameoflife.Cell;
 
 public class DeadCell implements Cell {
-    private cellStatus nextState;
+    private cellStatus nextState = cellStatus.DEAD;
     @Override
     public void nextState(Neighbors neighbors) {
 

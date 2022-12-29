@@ -55,11 +55,16 @@ public class GameController {
 
     }
 
-    public void receiveName0(String name) {players[0].receiveName(name);}
-    public void receiveName1(String name) {players[1].receiveName(name);}
     public cellStatus getStatus(short x, short y){return board.getStatus(x,y);}
 
     public void changeCellStatus(short x, short y, cellStatus cellStatus){
         board.nextGeneration();
     }
+
+    public void login(String name1, String name2){
+        players[0].receiveName(name1);
+        players[1].receiveName(name2);
+        this.startGame();
+    }
+
 }
