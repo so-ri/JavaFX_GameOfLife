@@ -70,7 +70,7 @@ public class JavaFXMain extends Application {
                 int finalY = y;
                 pane.setOnMouseClicked(event -> {
 
-                    // obv wrong inputs
+                    // obv wrong inputs (Input Validation)
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");
                     else if ((blue && value == cellStatus.RED || !blue && value == cellStatus.BLUE)
@@ -148,7 +148,7 @@ public class JavaFXMain extends Application {
         TextField textField_name_1 = new TextField();
 
         //button for sending in both names
-        Button loginbtn = new Button("OOKAAAY LET'SGO");
+        Button loginbtn = new Button("OKEEEE LET'S GO");
 
         //errorlabel
         Label errorLabel = new Label("");
