@@ -11,4 +11,8 @@ public class DeadCell implements Cell {
     public cellStatus getNextState() {
         return nextState;
     }
+
+    public cellStatus getCurrentState() {
+        return cellStatus.DEAD;
+    }
 }

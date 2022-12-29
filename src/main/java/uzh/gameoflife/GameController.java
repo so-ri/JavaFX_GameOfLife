@@ -1,11 +1,13 @@
 package uzh.gameoflife;
 
+import uzh.gameoflife.Cell.cellStatus;
+
 import java.util.Arrays;
 
 
 public class GameController {
     private static Player[] players = new Player[2];
-    private GameBoard board;
+    public GameBoard board; //TODO PRIVATE THIS SHIT
     private static GameController uniqueInstance;
 
     public static void updateNumCells(short blues, short reds){
@@ -16,7 +18,7 @@ public class GameController {
     private GameController(){
         players[0] = new Player();
         players[1] = new Player();
-
+        board = new GameBoard();
     }
 
     public static synchronized GameController getInstance(){
@@ -30,7 +32,6 @@ public class GameController {
         byte winner;
         byte starter = 0;
         byte other = 1;
-        board.initializeBoard();
 
         //decide starting player
         String[] names = {players[0].getName(), players[0].getName()};
@@ -41,12 +42,12 @@ public class GameController {
         while(true) {
             board.playerMove(players[starter]);
             board.update();
-            board.nextGeneration();
+            //board.nextGeneration();
             if(players[starter].hasWon()) {winner = starter; break;}
 
             board.playerMove(players[other]);
             board.update();
-            board.nextGeneration();
+            //board.nextGeneration();
             if(players[other].hasWon()) {winner = other; break;}
         }
 
@@ -56,5 +57,9 @@ public class GameController {
 
     public void receiveName0(String name) {players[0].receiveName(name);}
     public void receiveName1(String name) {players[1].receiveName(name);}
+    public cellStatus getStatus(short x, short y){return board.getStatus(x,y);}
 
+    public void changeCellStatus(short x, short y, cellStatus cellStatus){
+        board.nextGeneration();
+    }
 }

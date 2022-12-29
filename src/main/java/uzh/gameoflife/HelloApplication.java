@@ -3,6 +3,7 @@ package uzh.gameoflife;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.controlsfx.control.spreadsheet.Grid;
 import org.controlsfx.validation.ValidationResult;
+import uzh.gameoflife.Cell.cellStatus;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -66,21 +68,22 @@ public class HelloApplication extends Application {
         layout.setBackground(background);
         gridLayout.setBackground(background);
 
+
+
+
+        /*
         GridPane grid = new GridPane();
         for (int i = 0; i < 50; i++) {
             for (int j = 0; j < 50; j++) {
                 // create a white rectangle and add it to the grid
                 Rectangle rect = new Rectangle(25, 25);
                 rect.setStyle("-fx-fill: red; -fx-stroke: grey; -fx-stroke-width: 3;-fx-border-radius: 10;");
-
-
-
                 grid.add(rect,i,j);
             }
         }
-
         gridLayout.getChildren().add(grid);
 
+         */
 
 
         /*
@@ -93,44 +96,50 @@ public class HelloApplication extends Application {
         loginbtn.setOnAction(e -> {
             String txtfield0 = textField_name_0.getText();
             String txtfield1 = textField_name_1.getText();
-            //if (txtfield0.equals("Hans") || Objects.equals(txtfield1, "Hans")) errorLabel.setText("RAUS");
+
             if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter something meaningful");
             else {
                 g1.receiveName0(txtfield0);
                 g1.receiveName1(txtfield1);
-                scene.setRoot(gridLayout);
                 g1.startGame();
+                scene.setRoot(gridLayout);
             }
         });
+        gridLayout.getChildren().add(updateGrid(g1));
     }
 
     public static void main(String[] args) {
         launch();
     }
 
-    private void updateGrid(){
+    private GridPane updateGrid(GameController g1){
 
         gridLayout.getChildren().clear();
+        GridPane grid = new GridPane();
 
-        for(int x = 0; x < 50; x++){
-            for(int y = 0; y < 50; y++){
+        for(short x = 0; x < 50; x++){
+            for(short y = 0; y < 50; y++){
 
-                String value = gameOfLife.currentState(x,y) ? "black" : "white";
+                cellStatus value = g1.getStatus(x,y);
                 Pane pane = new Pane();
                 pane.setPrefSize(1000,1000);
 
+                switch (value){
+                    case RED -> pane.setStyle("-fx-background-color: RED");
+                    case BLUE -> pane.setStyle("-fx-background-color: BLUE");
+                    case DEAD -> pane.setStyle("-fx-background-color: WHITE");
+                }
 
-                pane.setStyle("-fx-background-color: "+ value);
-
-                int finalX = x;
-                int finalY = y;
+                short finalX = x;
+                short finalY = y;
                 pane.setOnMouseClicked(event -> {
-                    Object node = event.getSource();
-                    changeCellState(finalX, finalY,(Node)node);
+                    //Object node = event.getSource(); this would return the current node on which the event was fired upon
+                    g1.changeCellStatus(finalX, finalY, cellStatus.RED);
                 });
 
-                gameField.add( pane   , x, y  );
+                grid.add(pane,x,y);
             }
         }
+        return grid;
     }
 }

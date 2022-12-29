@@ -12,4 +12,8 @@ public class BlueCell implements Cell {
         return nextState;
     }
 
+    public cellStatus getCurrentState() {
+        return cellStatus.BLUE;
+    }
+
 }

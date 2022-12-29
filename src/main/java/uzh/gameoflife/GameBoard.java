@@ -9,7 +9,7 @@ public class GameBoard {
     private Cell[][] board = new Cell[50][50];
     private Player[] players = new Player[2];
 
-    public void initializeBoard() {        //fills 2 dimensional Array with DeadCells and a starting Pattern
+    public GameBoard() {        //fills 2 dimensional Array with DeadCells and a starting Pattern
         for (Cell[] cellArray : board) {
             Arrays.fill(cellArray, CellFactory.getCell(cellStatus.DEAD));
         }
@@ -67,6 +67,11 @@ public class GameBoard {
         return new Neighbors(RedCounter, BlueCounter);
     }
 
+    public cellStatus getStatus(short x, short y) {
+        return board[x][y].getCurrentState();
+    }
 
-
+    public void changeCellStatus(short x, short y, cellStatus cellStatus){
+        board[x][y] = CellFactory.getCell(cellStatus);
+    }
 }
