@@ -45,6 +45,7 @@ public class HelloApplication extends Application {
         layout.getChildren().clear();
         GridPane grid = new GridPane();
         Label label = new Label("Label");
+        label.setTextFill(Color.RED);
 
         for(short x = 0; x < 50; x++){
             for(short y = 0; y < 50; y++){
@@ -97,7 +98,7 @@ public class HelloApplication extends Application {
                         System.out.println("changed to blue");
                         System.out.println(finalX + " " + finalY);
                     }
-                    
+
                 });
                 grid.add(pane,x,y);
             }
