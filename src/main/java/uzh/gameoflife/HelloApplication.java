@@ -102,7 +102,7 @@ public class HelloApplication extends Application {
                         if(player.moveDone()) {
                             player.EnemyHit = new Neighbors(1000,1000);//reset it
                             g1.blueMove(this);
-                        };
+                        }
 
                     }
                     //if blue is playing...
