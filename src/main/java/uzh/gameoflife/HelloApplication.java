@@ -12,8 +12,8 @@ import uzh.gameoflife.Cell.Neighbors;
 import uzh.gameoflife.Cell.cellStatus;
 
 public class HelloApplication extends Application {
-    private GameController g1 = GameController.getInstance();
-    private VBox layout = new VBox();
+    private final GameController g1 = GameController.getInstance();
+    private final VBox layout = new VBox();
 
     @Override
     public void start(Stage primaryStage){
@@ -54,7 +54,7 @@ public class HelloApplication extends Application {
         for(int x = 0; x < 50; x++){
             for(int y = 0; y < 50; y++){
 
-                //get the value
+                //get the value, create the pane and set its color based on the value
                 cellStatus value = g1.getStatus(x,y);
                 Pane pane = new Pane();
                 pane.setPrefSize(1000,1000);
@@ -65,11 +65,12 @@ public class HelloApplication extends Application {
                     case DEAD -> pane.setStyle("-fx-background-color: WHITE");
                 }
 
+                //handle the click...
                 int finalX = x;
                 int finalY = y;
                 pane.setOnMouseClicked(event -> {
 
-                    //input validation
+                    // obv wrong inputs
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");
                     else if ((blue && value == cellStatus.RED || !blue && value == cellStatus.BLUE)
@@ -78,21 +79,21 @@ public class HelloApplication extends Application {
                     else if (player.spawnedCell && value == cellStatus.DEAD)
                         label.setText("You already spawned a cell");
 
+                    //if red is playing...
                     else if (!blue){
-                        if(value == cellStatus.DEAD) {
+                        if(value == cellStatus.DEAD) {//...and clicked pane is dead, make it red and mark as spawned
                             g1.changeCellStatus(finalX, finalY, cellStatus.RED);
                             player.spawnedCell = true;
                             pane.setStyle("-fx-background-color: RED");
                         }
                         else {
-                            if(player.EnemyHit.Blues != 1000) {
+                            if(player.EnemyHit.Blues != 1000) { //...and clicked pane is blue AND is the same pane that was just killed from the enemy, // then it is not a blue cell that gets killed but a blue cell being killed + red-ed
                                 g1.changeCellStatus(finalX, finalY, cellStatus.RED);
                                 player.spawnedCell = true;
                                 pane.setStyle("-fx-background-color: RED");
-                                player.EnemyHit = new Neighbors(1000,1000);//reset it TODO prob remove it
                             }
                             else {
-                                g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
+                                g1.changeCellStatus(finalX, finalY, cellStatus.DEAD); //...and clicked pane is blue, kill it
                                 player.hasKilledEnemy = true;
                                 player.EnemyHit = new Neighbors(finalX, finalY);
                                 pane.setStyle("-fx-background-color: WHITE");
@@ -103,24 +104,22 @@ public class HelloApplication extends Application {
                             g1.blueMove(this);
                         };
 
-                        System.out.println("changed to red");
-                        System.out.println(finalX + " " + finalY);
                     }
-                    else if (blue){
-                        if(value == cellStatus.DEAD) {
+                    //if blue is playing...
+                    else {
+                        if(value == cellStatus.DEAD) { //...and clicked pane is dead, make it blue and mark it as spawned
                             g1.changeCellStatus(finalX, finalY, cellStatus.BLUE);
                             player.spawnedCell = true;
                             pane.setStyle("-fx-background-color: BLUE");
                         }
                         else {
-                            if (player.EnemyHit.Blues != 1000) { //then it is not a red cell that gets killed but a red cell being killed + blue-ed
+                            if (player.EnemyHit.Blues != 1000) { //...and clicked pane is red AND is the same pane that was just killed from the enemy, // then it is not a red cell that gets killed but a red cell being killed + blue-ed
                                 g1.changeCellStatus(finalX, finalY, cellStatus.BLUE);
                                 player.spawnedCell = true;
                                 pane.setStyle("-fx-background-color: BLUE");
-                                player.EnemyHit = new Neighbors(1000,1000);//reset it TODO prob remove
                             }
                             else {
-                                g1.changeCellStatus(finalX, finalY, cellStatus.DEAD);
+                                g1.changeCellStatus(finalX, finalY, cellStatus.DEAD); //...and clicked pane is red, kill it
                                 player.hasKilledEnemy = true;
                                 player.EnemyHit = new Neighbors(finalX, finalY);
                                 pane.setStyle("-fx-background-color: WHITE");
@@ -130,25 +129,16 @@ public class HelloApplication extends Application {
                             player.EnemyHit = new Neighbors(1000,1000);//reset it
                             g1.redMove(this);
                         }
-                        System.out.println("changed to blue");
-                        System.out.println(finalX + " " + finalY);
                     }
-
-                    System.out.println(player.EnemyHit.Blues + "LOOKATTHIS" + player.EnemyHit.Reds);
                 });
                 grid.add(pane,x,y);
             }
         }
         grid.setGridLinesVisible(true);
         layout.getChildren().addAll(label,points, genPoints,grid);
-
     }
 
     private void login(){
-
-        /*
-         * Layout & scene for login
-         * */
         //label + textfield of player 0
         Label label0 = new Label("Name of the first player:");
         TextField textField_name_0 = new TextField();
@@ -165,24 +155,18 @@ public class HelloApplication extends Application {
         errorLabel.setTextFill(Color.RED);
 
         //new login layout & adding all elements onto it
-
         layout.getChildren().addAll(label0, textField_name_0);
         layout.setSpacing(10);
         layout.getChildren().addAll(label1, textField_name_1);
         layout.setSpacing(10);
         layout.getChildren().addAll(loginbtn, errorLabel);
 
-
-        //login button to second grid layout
-
+        //login button click handling
         loginbtn.setOnAction(e -> {
             String txtfield0 = textField_name_0.getText();
             String txtfield1 = textField_name_1.getText();
-
-            if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter something meaningful");
-            else {
-                g1.login(txtfield0,txtfield1,this);
-            }
+            if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter something meaningful"); //input validation
+            else g1.login(txtfield0,txtfield1,this);
         });
     }
 
