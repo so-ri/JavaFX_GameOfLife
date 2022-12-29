@@ -7,7 +7,6 @@ import java.util.Arrays;
 public class GameBoard {
     private int numGeneration = 0;
     private Cell[][] board = new Cell[50][50];
-    private Player[] players = new Player[2];
 
     public GameBoard() {        //fills 2 dimensional Array with DeadCells and a starting Pattern
         for (Cell[] cellArray : board) {
@@ -43,15 +42,6 @@ public class GameBoard {
         board[32][23] = CellFactory.getCell(cellStatus.RED);
     }
 
-    public void initializePlayers(){
-        players[0] = new Player();
-        players[1] = new Player();
-    }
-
-    public void playerMove(Player player){
-        //TODO GUI INPUT
-    }
-
     public void update() {      //sets the next state of the cells according to game rules but doesn't apply them yet
         for (int i = 0; i < 50; i++) {
             for (int j = 0; j < 50; j++) {
@@ -67,12 +57,12 @@ public class GameBoard {
             for (int j = 0; j < 50; j++) {
 
                 if (board[i][j].getNextState() == cellStatus.BLUE) numBlue += 1;
-                if (board[i][j].getNextState() == cellStatus.BLUE)  numRed += 1;
+                if (board[i][j].getNextState() == cellStatus.RED)  numRed += 1;
                 board[i][j] = CellFactory.getCell(board[i][j].getNextState());
             }
         }
         numGeneration += 1;
-        GameController.updateNumCells(numBlue,numRed);
+        GameController.updateNumCells(numRed, numBlue);
     }
 
     private Neighbors getNeighbors(int i, int j) {       //gets neighboring colors of a cell
@@ -100,4 +90,7 @@ public class GameBoard {
     public void changeCellStatus(int x, int y, cellStatus cellStatus){
         board[x][y] = CellFactory.getCell(cellStatus);
     }
+
+    public int getNumGeneration() {return numGeneration;}
+
 }

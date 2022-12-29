@@ -1,5 +1,6 @@
 package uzh.gameoflife;
 
+import uzh.gameoflife.Cell.Neighbors;
 import uzh.gameoflife.Cell.cellStatus;
 
 import java.util.Arrays;
@@ -38,7 +39,7 @@ import javafx.stage.Stage;
 
 public class GameController {
     private static Player[] players = new Player[2];
-    public GameBoard board; //TODO PRIVATE THIS SHIT
+    private GameBoard board;
     private static GameController uniqueInstance;
 
     public static void updateNumCells(int blues, int reds){
@@ -102,11 +103,17 @@ public class GameController {
         board.nextGeneration();
         GUI.updateGrid(false, players[1]);
     }
+
+    public String whoHasWon() {return players[0].hasLost() ? players[1].getName() : players[0].getName();} //if 0 has Lost return Name of Player 1, else return Name of Player 1
+    public boolean isOver(){return (players[0].hasLost() || players[1].hasLost());}
+
     public cellStatus getStatus(int x, int y){return board.getStatus(x,y);}
 
     public void changeCellStatus(int x, int y, cellStatus cellStatus){
         board.changeCellStatus(x,y,cellStatus);
     }
+
+    public Neighbors getCurrentPoints() {return new Neighbors(players[0].getPoints(), players[1].getPoints());}
 
     public void login(String name1, String name2, HelloApplication helloApplication){
         players[0].receiveName(name1);
@@ -114,5 +121,7 @@ public class GameController {
         this.startGame(helloApplication);
 
     }
+
+    public int getNumGeneration() {return board.getNumGeneration();}
 
 }
