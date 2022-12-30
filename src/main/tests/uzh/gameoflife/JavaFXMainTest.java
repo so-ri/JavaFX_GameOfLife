@@ -1,59 +1,40 @@
 package uzh.gameoflife;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.osgi.service.TestFx;
+import uzh.gameoflife.ModelControl.GameController;
 import uzh.gameoflife.ModelControl.Player;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class JavaFXMainTest extends ApplicationTest {
-
-    JavaFXMain testMain;
-    Player tester;
-    boolean blue;
-
-    @BeforeEach
-    public void setup(){
-        testMain = new JavaFXMain();
-        tester = new Player();
-        tester.receiveName("tester");
-        blue = true;
-    }
+public class JavaFXMainTest extends ApplicationTest {
+    private JavaFXMain app;
+    private GameController controller;
+    private Player player;
 
     @Override
-    public void start(Stage primaryStage){
-        System.out.println("test");
-        VBox layout = new VBox();
-        //setting up new scene
-        primaryStage.setScene(new Scene(layout,700,700 ));
-        primaryStage.show();
-        testMain.start(primaryStage);
-    }
-
-
-    @Test
-    void main() {
+    public void start(Stage stage) {
+        app = new JavaFXMain();
+        controller = GameController.getInstance();
+        player = new Player();
+        player.receiveName("player1");
+        app.updateGrid(true, player);
+        stage.setScene(app.getScene());
+        stage.show();
     }
 
     @Test
-    void updateGrid() {
+    public void testUpdateGrid() {
+        // Verify that the "Player: player1 has their turn: your color is blue" label is displayed
+        FxRobot robot = new FxRobot();
+        robot.lookup("#label").queryAs(Label.class).isVisible();
 
-    }
+        // Verify that the "Points of Blue Player: 0 Points of Red Player: 0" label is displayed
+        robot.lookup("#points").queryAs(Label.class).isVisible();
 
-    @Test
-    void labelTest(){
-        testMain.updateGrid(blue, tester);
-        Label label2 = lookup("#label").query();
-        assertEquals("Player: tester has their turn: your color is blue", label2.getText());
+        // Verify that the grid is displayed
+        robot.lookup("#grid").queryAs(GridPane.class).isVisible();
     }
 }

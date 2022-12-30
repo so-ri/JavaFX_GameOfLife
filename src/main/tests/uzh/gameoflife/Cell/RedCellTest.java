@@ -5,20 +5,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 
-public class BlueCellTest {
+public class RedCellTest {
     @Test
     public void testNextState() {
         // Create a mock CustomTuple with a sum of 3
-        CustomTuple mockTuple = new CustomTuple(1,2) ;
+        CustomTuple mockTuple = new CustomTuple(2,1) ;
 
-        // Create a new BlueCell
-        BlueCell cell = new BlueCell();
+        // Create a new RedCell
+        RedCell cell = new RedCell();
 
         // Call nextState with the mock CustomTuple
         cell.nextState(mockTuple);
 
         // Assert that the next state is BLUE
-        assertEquals(cellStatus.BLUE, cell.getNextState());
+        assertEquals(cellStatus.RED, cell.getNextState());
     }
 
     @Test
@@ -26,8 +26,8 @@ public class BlueCellTest {
         // Create a mock CustomTuple with a sum of 0
         CustomTuple mockTuple = new CustomTuple(0,0) ;
 
-        // Create a new BlueCell
-        BlueCell cell = new BlueCell();
+        // Create a new RedCell
+        RedCell cell = new RedCell();
 
         // Call nextState with the mock CustomTuple
         cell.nextState(mockTuple);
@@ -38,10 +38,10 @@ public class BlueCellTest {
 
     @Test
     public void testGetCurrentState() {
-        // Create a new BlueCell
-        BlueCell cell = new BlueCell();
+        // Create a new RedCell
+        RedCell cell = new RedCell();
 
         // Assert that the current state is BLUE
-        assertEquals(cellStatus.BLUE, cell.getCurrentState());
+        assertEquals(cellStatus.RED, cell.getCurrentState());
 
-}}
+    }}

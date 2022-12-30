@@ -10,4 +10,5 @@ public class CustomTuple {
         Blues = blues;
         sum = reds + blues;
     }
+
 }

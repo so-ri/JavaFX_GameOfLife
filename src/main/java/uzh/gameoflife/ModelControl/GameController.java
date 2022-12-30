@@ -21,10 +21,10 @@ public class GameController {
         return uniqueInstance;
     }
 
-    public void login(String name1, String name2, JavaFXMain helloApplication){
+    public void login(String name1, String name2, JavaFXMain GUI){
         players[0].receiveName(name1);
         players[1].receiveName(name2);
-        this.startGame(helloApplication);
+        this.startGame(GUI);
     }
 
     public void startGame(JavaFXMain GUI){

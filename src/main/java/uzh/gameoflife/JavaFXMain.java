@@ -17,11 +17,14 @@ public class JavaFXMain extends Application {
     private final GameController g1 = GameController.getInstance();
     private final VBox layout = new VBox();
 
+    private Scene scene = new Scene(layout,700,700 );
+
+
+
     @Override
     public void start(Stage primaryStage){
-
         //setting up new scene
-        primaryStage.setScene(new Scene(layout,700,700 ));
+        primaryStage.setScene(scene);
         login(); // takes name via login and starts grid
         primaryStage.show();
     }
@@ -172,6 +175,10 @@ public class JavaFXMain extends Application {
             if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter something meaningful"); //input validation
             else g1.login(txtfield0,txtfield1,this);
         });
+    }
+
+    public Scene getScene(){
+        return this.scene; 
     }
 
 }
