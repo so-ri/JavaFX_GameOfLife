@@ -1,22 +1,19 @@
 package uzh.gameoflife.ModelControl;
 
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-import uzh.gameoflife.Cell.CustomTuple;
-import uzh.gameoflife.Cell.cellStatus;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameControllerTest {
     private GameController controller;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         controller = GameController.getInstance();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         controller = null;
     }
