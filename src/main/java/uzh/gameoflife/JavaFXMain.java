@@ -17,7 +17,7 @@ public class JavaFXMain extends Application {
     private final GameController g1 = GameController.getInstance();
     public final VBox layout = new VBox();
 
-
+    public GridPane grid = new GridPane();
 
 
 
@@ -42,7 +42,7 @@ public class JavaFXMain extends Application {
         //reset the layout after the login
         layout.getChildren().clear();
         //setup basic layout including points
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         Label label = new Label("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
         label.setFont(Font.font(25));
         CustomTuple currentPoints = g1.getCurrentPoints();
@@ -74,7 +74,7 @@ public class JavaFXMain extends Application {
                 int finalX = x;
                 int finalY = y;
                 pane.setOnMouseClicked(event -> {
-
+                    System.out.println("sup");
                     // obv wrong inputs (Input Validation)
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");

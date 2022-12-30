@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -72,6 +73,25 @@ class JavaFXMainTest extends ApplicationTest {
         String actual = ((Label) app.layout.getChildren().get(0)).getText();
         String expected = "Name of the first player:";
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void test_updateGrid_RedPlayer3() {
+        // given
+        boolean blue = false;
+        player.hasKilledEnemy = true;
+        player.spawnedCell = true;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            Pane pane = (Pane) app.grid.getChildren().get(774);
+            pane.requestFocus();
+            new FxRobot().clickOn(app.grid.getChildren().get(774));
+            System.out.println(gc.getStatus(15,24));
+        });
+
+
+
     }
     /**
     @Test
