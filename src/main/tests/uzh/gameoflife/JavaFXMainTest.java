@@ -4,6 +4,7 @@ package uzh.gameoflife;
 import static java.nio.file.Files.find;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static org.assertj.javafx.api.Assertions.assertThat;
 
 import javafx.application.Application;
@@ -127,7 +128,7 @@ class JavaFXMainTest extends ApplicationTest {
         });
     }
     @Test
-    public void test_updateGrid_Blue_clicks_different_Reds() {
+    public void test_updateGrid_Blue_clicks_different_Reds() { //TODO NEEDS DEBUGGING
         boolean blue = true;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
@@ -159,12 +160,17 @@ class JavaFXMainTest extends ApplicationTest {
             Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
                     0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                     true, true, true, true, true, true, null));
-            pane = (Pane) app.grid.getChildren().get(45*50+40);
+            pane = (Pane) app.grid.getChildren().get(45*50+41);
             Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
                     0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                     true, true, true, true, true, true, null));
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = "You already spawned a cell";
+            assertEquals(expected,actual);
         });
     }
+
+
 
     @Test
     public void test_killOwnCell_blue(){
@@ -185,6 +191,30 @@ class JavaFXMainTest extends ApplicationTest {
         });
     }
 
+
+    @Test
+    public void BlueClicksDeadAndClicksRed() {
+        boolean blue = true;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(49*50+40);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            pane = (Pane) app.grid.getChildren().get(36*50+23);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertTrue(player.moveDone());
+        });
+    }
+    /*
+    *
+    * for the large if else tree
+    *
+    * */
     @Test
     public void test_updateGrid_Red_clicks_Dead() {
         boolean blue = false;
@@ -280,8 +310,8 @@ class JavaFXMainTest extends ApplicationTest {
     @Test
     public void test_updateGrid_Blue_clicks_Red() {
         boolean blue = true;
-        int x = 30;
-        int y = 24;
+        int x = 32;
+        int y = 25;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
 
