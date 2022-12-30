@@ -290,8 +290,8 @@ class JavaFXMainTest extends ApplicationTest {
     @Test
     public void test_updateGrid_Blue_clicks_Red_Twice() {
         boolean blue = true;
-        int x = 35;
-        int y = 24;
+        int x = 31;
+        int y = 25;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
 
