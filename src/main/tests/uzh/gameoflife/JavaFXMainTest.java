@@ -38,7 +38,7 @@ class JavaFXMainTest extends ApplicationTest {
         app.start(stage);
     }
     @Test
-    public void testUpdateGrid_RedPlayer_HasKilledEnemy_HasSpawnedCell() {
+    public void test_updateGrid_RedPlayer() {
         // given
         boolean blue = false;
         player.hasKilledEnemy = true;
@@ -54,6 +54,26 @@ class JavaFXMainTest extends ApplicationTest {
         String expected = "Name of the first player:";
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void test_updateGrid_BluePlayer() {
+        // given
+        boolean blue = true;
+        player.hasKilledEnemy = true;
+        player.spawnedCell = true;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+        });
+
+
+
+        // then
+        //Assertions.assertThat(app.layout).getChildren(1);
+        String actual = ((Label) app.layout.getChildren().get(0)).getText();
+        String expected = "Name of the first player:";
+        assertEquals(expected,actual);
+    }
+
 
     /*
     @Test

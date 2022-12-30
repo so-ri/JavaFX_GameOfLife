@@ -3,6 +3,8 @@ package uzh.gameoflife.ModelControl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uzh.gameoflife.Cell.CustomTuple;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameControllerTest {
@@ -24,6 +26,13 @@ public class GameControllerTest {
         assertSame(controller, controller2);
     }
 
+    @Test
+    public void testUpdateNumCells() {
+        controller.updateNumCells(5, 10);
+        CustomTuple points = controller.getCurrentPoints();
+        assertEquals(5, points.Reds);
+        assertEquals(10, points.Blues);
+    }
     /*
     @Test
     public void testLogin() {
@@ -47,12 +56,7 @@ public class GameControllerTest {
         controller.redMove(null);
     }
 
-    @Test
-    public void testUpdateNumCells() {
-        controller.updateNumCells(5, 10);
-        assertEquals(5, controller.players[0].getPoints());
-        assertEquals(10, controller.players[1].getPoints());
-    }
+
 
     @Test
     public void testWhoHasWon() {
