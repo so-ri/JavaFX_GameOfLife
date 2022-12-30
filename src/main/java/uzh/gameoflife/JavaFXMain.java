@@ -78,7 +78,7 @@ public class JavaFXMain extends Application {
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");
                     else if ((blue && value == cellStatus.RED || !blue && value == cellStatus.BLUE)
-                     && player.hasKilledEnemy && !((player.EnemyHit.Reds == finalX) && (player.EnemyHit.Blues == finalY)))
+                     && player.hasKilledEnemy && (!(player.EnemyHit.Reds == finalX) || !(player.EnemyHit.Blues == finalY)))
                         label.setText("You already killed an opponent cell");
                     else if (player.spawnedCell && value == cellStatus.DEAD)
                         label.setText("You already spawned a cell");
