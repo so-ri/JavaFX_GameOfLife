@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -20,6 +23,7 @@ import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
+import uzh.gameoflife.Cell.cellStatus;
 import uzh.gameoflife.ModelControl.GameController;
 import uzh.gameoflife.ModelControl.Player;
 
@@ -85,9 +89,10 @@ class JavaFXMainTest extends ApplicationTest {
             app.updateGrid(blue, player);
 
             Pane pane = (Pane) app.grid.getChildren().get(774);
-            pane.requestFocus();
-            new FxRobot().clickOn(app.grid.getChildren().get(774));
-            System.out.println(gc.getStatus(15,24));
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertEquals(gc.getStatus(15,24), cellStatus.DEAD);
         });
 
 
