@@ -1,43 +1,26 @@
-
-
 package uzh.gameoflife;
-import static java.nio.file.Files.find;
-import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static org.assertj.javafx.api.Assertions.assertThat;
-
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.api.FxAssert;
-import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.control.LabeledMatchers;
 import uzh.gameoflife.Cell.cellStatus;
 import uzh.gameoflife.ModelControl.GameController;
 import uzh.gameoflife.ModelControl.Player;
-
 
 
 class JavaFXMainTest extends ApplicationTest {
     private JavaFXMain app;
     private GameController gc;
     private Player player;
-
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -49,10 +32,14 @@ class JavaFXMainTest extends ApplicationTest {
     }
 
 
+    /**
+     *
+     *
+     * Tests for Game Over
+     *
+     * */
 
 
-
-    //Tests if game over
     @Test
     public void isOver(){
         Platform.runLater(() -> {
@@ -78,6 +65,13 @@ class JavaFXMainTest extends ApplicationTest {
             assertEquals(expected,actual);
         });
     }
+
+    /**
+     *
+     *
+     * Tests for Login
+     *
+     * */
 
     @Test
     public void test_login() {
@@ -131,12 +125,14 @@ class JavaFXMainTest extends ApplicationTest {
     }
 
 
-    /*
+    /**
     *
     *
-    * FOR THE ERROR STATEMENTS
+    * Tests for Input validation
     *
     * */
+
+
     @Test
     public void test_killOwnCell(){
         boolean blue = false;
@@ -221,8 +217,6 @@ class JavaFXMainTest extends ApplicationTest {
         });
     }
 
-
-
     @Test
     public void test_killOwnCell_blue(){
         boolean blue = true;
@@ -243,6 +237,12 @@ class JavaFXMainTest extends ApplicationTest {
     }
 
 
+    /**
+     *
+     * For the large if else tree
+     *
+     * */
+
     @Test
     public void BlueClicksDeadAndClicksRed() {
         boolean blue = true;
@@ -261,11 +261,7 @@ class JavaFXMainTest extends ApplicationTest {
             assertTrue(player.moveDone());
         });
     }
-    /*
-    *
-    * for the large if else tree
-    *
-    * */
+
     @Test
     public void test_updateGrid_Red_clicks_Dead() {
         boolean blue = false;
@@ -374,5 +370,4 @@ class JavaFXMainTest extends ApplicationTest {
             assertEquals(cellStatus.DEAD,gc.getStatus(x,y));
         });
     }
-
 }
