@@ -142,7 +142,7 @@ public class JavaFXMain extends Application {
         layout.getChildren().addAll(label,points, genPoints,grid);
     }
 
-    private void login(){
+    public void login(){
         //label + textfield of player 0
         Label label0 = new Label("Name of the first player:");
         TextField textField_name_0 = new TextField();
@@ -166,10 +166,10 @@ public class JavaFXMain extends Application {
         layout.getChildren().addAll(loginbtn, errorLabel);
 
         //login button click handling
-        loginbtn.setOnAction(e -> {
+        loginbtn.setOnMouseClicked(e -> {
             String txtfield0 = textField_name_0.getText();
             String txtfield1 = textField_name_1.getText();
-            if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter something meaningful"); //input validation
+            if (txtfield0.isEmpty() || txtfield1.isEmpty()) errorLabel.setText("enter a name"); //input validation
             else g1.login(txtfield0,txtfield1,this);
         });
     }

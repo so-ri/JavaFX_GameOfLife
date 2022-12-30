@@ -12,12 +12,15 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxAssert;
@@ -35,6 +38,7 @@ class JavaFXMainTest extends ApplicationTest {
     private GameController gc;
     private Player player;
 
+
     @Override
     public void start(Stage stage) throws Exception {
         app = new JavaFXMain();
@@ -43,41 +47,87 @@ class JavaFXMainTest extends ApplicationTest {
         player.receiveName("testGuy");
         app.start(stage);
     }
+
+
+
+
+
+    //Tests if game over
     @Test
-    public void test_updateGrid_RedPlayer() {
-        // given
-        boolean blue = false;
-        player.hasKilledEnemy = true;
-        player.spawnedCell = true;
+    public void isOver(){
         Platform.runLater(() -> {
-            app.updateGrid(blue, player);
+            gc.login("p1","p2", app);
+            GameController.updateNumCells(10,0);
+            app.updateGrid(false,player);
+
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = gc.whoHasWon() + " HAS WON!";
+            assertEquals(expected,actual);
         });
-
-
-        // then
-        //Assertions.assertThat(app.layout).getChildren(1);
-        String actual = ((Label) app.layout.getChildren().get(0)).getText();
-        String expected = "Name of the first player:";
-        assertEquals(expected,actual);
     }
 
     @Test
-    public void test_updateGrid_BluePlayer() {
-        // given
-        boolean blue = true;
-        player.hasKilledEnemy = true;
-        player.spawnedCell = true;
+    public void isOver_2(){
         Platform.runLater(() -> {
-            app.updateGrid(blue, player);
+            gc.login("p1","p2", app);
+            GameController.updateNumCells(0,10);
+            app.updateGrid(false,player);
+
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = gc.whoHasWon() + " HAS WON!";
+            assertEquals(expected,actual);
         });
+    }
 
+    @Test
+    public void test_login() {
+        Platform.runLater(() -> {
+            TextField s1 = (TextField) app.layout.getChildren().get(1);
+            s1.setText("Hans");
+            Event.fireEvent(app.layout.getChildren().get(4), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
 
+            String actual = ((Label) app.layout.getChildren().get(5)).getText();
+            String expected = "enter a name";
+            assertEquals(expected,actual);
+        });
+    }
 
-        // then
-        //Assertions.assertThat(app.layout).getChildren(1);
-        String actual = ((Label) app.layout.getChildren().get(0)).getText();
-        String expected = "Name of the first player:";
-        assertEquals(expected,actual);
+    @Test
+    public void test_login2() {
+        Platform.runLater(() -> {
+            TextField s2 = (TextField) app.layout.getChildren().get(3);
+            s2.setText("Hans2");
+
+            Event.fireEvent(app.layout.getChildren().get(4), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+
+            String actual = ((Label) app.layout.getChildren().get(5)).getText();
+            String expected = "enter a name";
+            assertEquals(expected,actual);
+        });
+    }
+
+    @Test
+    public void test_login4() {
+        Platform.runLater(() -> {
+
+            TextField s1 = (TextField) app.layout.getChildren().get(1);
+            s1.setText("Hans");
+
+            TextField s2 = (TextField) app.layout.getChildren().get(3);
+            s2.setText("Hans2");
+            GameController.updateNumCells(12,12);
+            Event.fireEvent(app.layout.getChildren().get(4), new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+
+            String expected = "Player: Hans has their turn: your color is blue";
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            assertEquals(expected,actual);
+        });
     }
 
 
@@ -113,7 +163,7 @@ class JavaFXMainTest extends ApplicationTest {
             app.updateGrid(blue, player);
 
             //gets Pane at node at (x,y)
-            Pane pane = (Pane) app.grid.getChildren().get(23*50+24);
+            Pane pane = (Pane) app.grid.getChildren().get(21*50+25);
             Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
                     0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                     true, true, true, true, true, true, null));
@@ -127,8 +177,9 @@ class JavaFXMainTest extends ApplicationTest {
             assertEquals(expected,actual);
         });
     }
+
     @Test
-    public void test_updateGrid_Blue_clicks_different_Reds() { //TODO NEEDS DEBUGGING
+    public void test_updateGrid_Blue_clicks_different_Reds() {
         boolean blue = true;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
