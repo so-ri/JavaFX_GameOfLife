@@ -74,7 +74,6 @@ public class JavaFXMain extends Application {
                 int finalX = x;
                 int finalY = y;
                 pane.setOnMouseClicked(event -> {
-                    System.out.println("sup");
                     // obv wrong inputs (Input Validation)
                     if((blue && value == cellStatus.BLUE) || !blue && value == cellStatus.RED )
                         label.setText("You cant kill your own cell!");

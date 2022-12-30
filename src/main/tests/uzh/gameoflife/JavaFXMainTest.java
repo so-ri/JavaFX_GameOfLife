@@ -80,72 +80,117 @@ class JavaFXMainTest extends ApplicationTest {
     }
 
     @Test
-    public void test_updateGrid_RedPlayer3() {
-        // given
+    public void test_updateGrid_Red_clicks_Dead() {
+        app = new JavaFXMain();
         boolean blue = false;
-        player.hasKilledEnemy = true;
-        player.spawnedCell = true;
+        int x = 5;
+        int y = 5;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
 
-            Pane pane = (Pane) app.grid.getChildren().get(774);
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
             Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
                     0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
                     true, true, true, true, true, true, null));
-            assertEquals(gc.getStatus(15,24), cellStatus.DEAD);
+            assertEquals(cellStatus.RED,gc.getStatus(x,y));
         });
-
-
-
     }
-    /**
-    @Test
-    public void test_updateGrid_BluePlayer2() {
 
-        boolean blue = true;
-        GameController.updateNumCells(0,12);
-        player.receiveNumCells(0);
-        player.receiveName("tester");
+    @Test
+    public void test_updateGrid_Red_clicks_Blue_Twice() {
+        app = new JavaFXMain();
+        boolean blue = false;
+        int x = 15;
+        int y = 24;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertEquals(cellStatus.RED,gc.getStatus(x,y));
         });
-
-
-
-        // then
-        //Assertions.assertThat(app.layout).getChildren(1);
-        String actual = ((Label) app.layout.getChildren().get(0)).getText();
-        String expected = player.getName() + " HAS WON!";
-        assertEquals(expected,actual);
-    }
-    */
-    /*
-    @Test
-    void labelTest(FxRobot robot){
-        //FxRobot robot = new FxRobot();
-        app.updateGrid(true, player);
-        //Node label2 = robot.lookup("#label").query();
-        //assertEquals("Player: tester has their turn: your color is blue", label2.);
-        FxAssert.verifyThat("#label", LabeledMatchers.hasText("Player: testGuy has their turn: your color is blue"));
-        // Verify that the grid is displayed
-        //robot.lookup("#grid").queryAs(GridPane.class).isVisible();
     }
 
-
-
-     */
-    /*
     @Test
-    public void testUpdateGrid_BluePlayer_HasNotKilledEnemy_HasNotSpawnedCell(FxRobot robot) {
-        // given
+    public void test_updateGrid_Red_clicks_Blue() {
+        app = new JavaFXMain();
+        boolean blue = false;
+        int x = 15;
+        int y = 24;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertEquals(cellStatus.DEAD,gc.getStatus(x,y));
+        });
+    }
+
+    @Test
+    public void test_updateGrid_Blue_clicks_Dead() {
+        app = new JavaFXMain();
         boolean blue = true;
-        app.updateGrid(blue, player);
+        int x = 5;
+        int y = 5;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
 
-        // then
-        app.layout.getChildren().get(0).get
-        Assertions.assertThat(robot.lookup("#label").queryAs()).hasText("click me!");
-        Assertions.assertThat( app.layout.getChildren().get(0)).hasText("Player: player1 has their turn: your color is blue");
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertEquals(cellStatus.BLUE,gc.getStatus(x,y));
+        });
     }
 
-     */
+    @Test
+    public void test_updateGrid_Blue_clicks_Red_Twice() {
+        app = new JavaFXMain();
+        boolean blue = true;
+        int x = 35;
+        int y = 24;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertEquals(cellStatus.BLUE,gc.getStatus(x,y));
+        });
+    }
+
+    @Test
+    public void test_updateGrid_Blue_clicks_Red() {
+        app = new JavaFXMain();
+        boolean blue = true;
+        int x = 35;
+        int y = 24;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            assertEquals(cellStatus.DEAD,gc.getStatus(x,y));
+        });
+    }
+
 }
