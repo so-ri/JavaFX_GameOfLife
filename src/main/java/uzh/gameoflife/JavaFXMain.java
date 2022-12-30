@@ -178,7 +178,7 @@ public class JavaFXMain extends Application {
     }
 
     public Scene getScene(){
-        return this.scene; 
+        return this.scene;
     }
 
 }
