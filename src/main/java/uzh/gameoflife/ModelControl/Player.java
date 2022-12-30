@@ -1,5 +1,5 @@
-package uzh.gameoflife;
-import uzh.gameoflife.Cell.Neighbors;
+package uzh.gameoflife.ModelControl;
+import uzh.gameoflife.Cell.CustomTuple;
 
 public class Player implements Comparable<Player> {
 
@@ -7,7 +7,7 @@ public class Player implements Comparable<Player> {
     public boolean hasKilledEnemy;
     public boolean spawnedCell;
     private int numFields = 12;
-    public Neighbors EnemyHit = new Neighbors(1000,1000); //no neighbors here - just too lazy to rename the 2 int tuple object helper
+    public CustomTuple EnemyHit = new CustomTuple(1000,1000);
     private String name;
     public void receiveNumCells(int cells){this.numFields = cells;}
     public int getPoints() {return this.numFields;}

@@ -3,7 +3,7 @@ package uzh.gameoflife.Cell;
 
 public interface Cell {
 
-    void nextState(Neighbors neighbors);
+    void nextState(CustomTuple customTuple);
     cellStatus getNextState();
     cellStatus getCurrentState();
 }

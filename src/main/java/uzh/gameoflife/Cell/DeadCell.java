@@ -5,9 +5,9 @@ public class DeadCell implements Cell {
 
     //chooses next state according to game rules
     @Override
-    public void nextState(Neighbors neighbors) {
-        if((neighbors.sum) == 3 && neighbors.Blues >= 2) nextState = cellStatus.BLUE;
-        else if(neighbors.sum == 3) nextState = cellStatus.RED;
+    public void nextState(CustomTuple customTuple) {
+        if((customTuple.sum) == 3 && customTuple.Blues >= 2) nextState = cellStatus.BLUE;
+        else if(customTuple.sum == 3) nextState = cellStatus.RED;
         else nextState = cellStatus.DEAD;
     }
 

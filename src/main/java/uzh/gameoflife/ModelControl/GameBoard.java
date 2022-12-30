@@ -1,4 +1,4 @@
-package uzh.gameoflife;
+package uzh.gameoflife.ModelControl;
 
 import uzh.gameoflife.Cell.*;
 
@@ -37,7 +37,7 @@ public class GameBoard {
     }
 
     //gets neighboring colors of a cell
-    private Neighbors getNeighbors(int i, int j) {
+    private CustomTuple getNeighbors(int i, int j) {
         int RedCounter = 0;
         int BlueCounter = 0;
 
@@ -52,7 +52,7 @@ public class GameBoard {
                 if(board[x][y].getClass() == RedCell.class) RedCounter += 1;
             }
         }
-        return new Neighbors(RedCounter, BlueCounter);
+        return new CustomTuple(RedCounter, BlueCounter);
     }
 
     public cellStatus getStatus(int x, int y) {return board[x][y].getCurrentState();}

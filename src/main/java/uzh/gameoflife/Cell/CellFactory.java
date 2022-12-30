@@ -1,7 +1,6 @@
-package uzh.gameoflife;
-import uzh.gameoflife.Cell.*;
+package uzh.gameoflife.Cell;
 
-class CellFactory {
+public class CellFactory {
     public static Cell getCell(cellStatus cellStatus) {
         return switch (cellStatus) {
             case RED -> new RedCell();

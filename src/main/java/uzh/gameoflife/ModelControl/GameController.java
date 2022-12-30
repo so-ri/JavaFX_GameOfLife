@@ -1,7 +1,9 @@
-package uzh.gameoflife;
+package uzh.gameoflife.ModelControl;
 
-import uzh.gameoflife.Cell.Neighbors;
+import uzh.gameoflife.Cell.CustomTuple;
 import uzh.gameoflife.Cell.cellStatus;
+import uzh.gameoflife.JavaFXMain;
+
 import java.util.Arrays;
 
 public class GameController {
@@ -52,6 +54,6 @@ public class GameController {
     public void changeCellStatus(int x, int y, cellStatus cellStatus){
         board.changeCellStatus(x,y,cellStatus);
     }
-    public Neighbors getCurrentPoints() {return new Neighbors(players[0].getPoints(), players[1].getPoints());}
+    public CustomTuple getCurrentPoints() {return new CustomTuple(players[0].getPoints(), players[1].getPoints());}
     public int getNumGeneration() {return board.getNumGeneration();}
 }

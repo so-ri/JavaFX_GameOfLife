@@ -8,8 +8,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import uzh.gameoflife.Cell.Neighbors;
+import uzh.gameoflife.Cell.CustomTuple;
 import uzh.gameoflife.Cell.cellStatus;
+import uzh.gameoflife.ModelControl.GameController;
+import uzh.gameoflife.ModelControl.Player;
 
 public class JavaFXMain extends Application {
     private final GameController g1 = GameController.getInstance();
@@ -40,7 +42,7 @@ public class JavaFXMain extends Application {
         GridPane grid = new GridPane();
         Label label = new Label("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
         label.setFont(Font.font(25));
-        Neighbors currentPoints = g1.getCurrentPoints();
+        CustomTuple currentPoints = g1.getCurrentPoints();
         Label points = new Label("Points of Blue Player: " + currentPoints.Blues + " Points of Red Player: " + currentPoints.Reds);
         Label genPoints = new Label("Generations: " + g1.getNumGeneration());
         label.setTextFill(Color.RED);
@@ -95,12 +97,12 @@ public class JavaFXMain extends Application {
                             else {
                                 g1.changeCellStatus(finalX, finalY, cellStatus.DEAD); //...and clicked pane is blue, kill it
                                 player.hasKilledEnemy = true;
-                                player.EnemyHit = new Neighbors(finalX, finalY);
+                                player.EnemyHit = new CustomTuple(finalX, finalY);
                                 pane.setStyle("-fx-background-color: WHITE");
                             }
                         }
                         if(player.moveDone()) {
-                            player.EnemyHit = new Neighbors(1000,1000);//reset it
+                            player.EnemyHit = new CustomTuple(1000,1000);//reset it
                             g1.blueMove(this);
                         }
 
@@ -121,12 +123,12 @@ public class JavaFXMain extends Application {
                             else {
                                 g1.changeCellStatus(finalX, finalY, cellStatus.DEAD); //...and clicked pane is red, kill it
                                 player.hasKilledEnemy = true;
-                                player.EnemyHit = new Neighbors(finalX, finalY);
+                                player.EnemyHit = new CustomTuple(finalX, finalY);
                                 pane.setStyle("-fx-background-color: WHITE");
                             }
                         }
                         if(player.moveDone()) {
-                            player.EnemyHit = new Neighbors(1000,1000);//reset it
+                            player.EnemyHit = new CustomTuple(1000,1000);//reset it
                             g1.redMove(this);
                         }
                     }
