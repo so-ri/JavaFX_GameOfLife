@@ -22,6 +22,21 @@ class DeadCellTest {
     }
 
     @Test
+    public void testNextState2() {
+        // Create a mock CustomTuple with a sum of 3
+        CustomTuple mockTuple = new CustomTuple(1,2) ;
+
+        // Create a new DeadCell
+        DeadCell cell = new DeadCell();
+
+        // Call nextState with the mock CustomTuple
+        cell.nextState(mockTuple);
+
+        // Assert that the next state is BLUE
+        assertEquals(cellStatus.BLUE, cell.getNextState());
+    }
+
+    @Test
     public void testNextStateDead() {
         // Create a mock CustomTuple with a sum of 0
         CustomTuple mockTuple = new CustomTuple(0,0) ;

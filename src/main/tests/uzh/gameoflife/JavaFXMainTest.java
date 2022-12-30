@@ -73,8 +73,27 @@ class JavaFXMainTest extends ApplicationTest {
         String expected = "Name of the first player:";
         assertEquals(expected,actual);
     }
+    /**
+    @Test
+    public void test_updateGrid_BluePlayer2() {
+
+        boolean blue = true;
+        GameController.updateNumCells(0,12);
+        player.receiveNumCells(0);
+        player.receiveName("tester");
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+        });
 
 
+
+        // then
+        //Assertions.assertThat(app.layout).getChildren(1);
+        String actual = ((Label) app.layout.getChildren().get(0)).getText();
+        String expected = player.getName() + " HAS WON!";
+        assertEquals(expected,actual);
+    }
+    */
     /*
     @Test
     void labelTest(FxRobot robot){

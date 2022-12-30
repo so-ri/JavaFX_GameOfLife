@@ -41,7 +41,6 @@ public class JavaFXMain extends Application {
 
         //reset the layout after the login
         layout.getChildren().clear();
-        System.out.println("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
         //setup basic layout including points
         GridPane grid = new GridPane();
         Label label = new Label("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
@@ -54,7 +53,6 @@ public class JavaFXMain extends Application {
 
         //check if over
         if (g1.isOver()) {
-            label.setFont(Font.font(25));
             label.setText(g1.whoHasWon() + " HAS WON!");
         }
         // print the grid and decide the color of the pane

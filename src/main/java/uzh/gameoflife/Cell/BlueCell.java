@@ -6,7 +6,7 @@ public class BlueCell implements Cell {
     //chooses next state according to game rules
     @Override
     public void nextState(CustomTuple customTuple) {
-        if(customTuple.sum < 4 && customTuple.sum > 1) nextState = cellStatus.BLUE;
+        if(customTuple.sum == 3 || customTuple.sum == 2) nextState = cellStatus.BLUE;
         else nextState = cellStatus.DEAD;
     }
 

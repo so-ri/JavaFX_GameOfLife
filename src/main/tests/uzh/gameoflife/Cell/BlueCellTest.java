@@ -20,20 +20,6 @@ public class BlueCellTest {
         // Assert that the next state is BLUE
         assertEquals(cellStatus.BLUE, cell.getNextState());
     }
-    @Test
-    public void testNextState2() {
-        // Create a mock CustomTuple with a sum of 3
-        CustomTuple mockTuple = new CustomTuple(1,1);
-
-        // Create a new BlueCell
-        BlueCell cell = new BlueCell();
-
-        // Call nextState with the mock CustomTuple
-        cell.nextState(mockTuple);
-
-        // Assert that the next state is BLUE
-        assertEquals(cellStatus.BLUE, cell.getNextState());
-    }
 
     @Test
     public void testNextStateDead() {
