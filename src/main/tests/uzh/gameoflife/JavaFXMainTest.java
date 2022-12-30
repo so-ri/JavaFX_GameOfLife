@@ -80,10 +80,29 @@ class JavaFXMainTest extends ApplicationTest {
     }
 
     @Test
-    public void test_updateGrid_Red_clicks_Dead() {
-        app = new JavaFXMain();
+    public void test_killOwnCell(){
         boolean blue = false;
-        int x = 5;
+        int x = 36;
+        int y = 25;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = "You cant kill your own cell!";
+            assertEquals(expected,actual);
+        });
+
+    }
+
+    @Test
+    public void test_updateGrid_Red_clicks_Dead() {
+        boolean blue = false;
+        int x = 25;
         int y = 5;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
@@ -99,9 +118,8 @@ class JavaFXMainTest extends ApplicationTest {
 
     @Test
     public void test_updateGrid_Red_clicks_Blue_Twice() {
-        app = new JavaFXMain();
         boolean blue = false;
-        int x = 15;
+        int x = 20;
         int y = 24;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
@@ -120,7 +138,6 @@ class JavaFXMainTest extends ApplicationTest {
 
     @Test
     public void test_updateGrid_Red_clicks_Blue() {
-        app = new JavaFXMain();
         boolean blue = false;
         int x = 15;
         int y = 24;
@@ -138,7 +155,6 @@ class JavaFXMainTest extends ApplicationTest {
 
     @Test
     public void test_updateGrid_Blue_clicks_Dead() {
-        app = new JavaFXMain();
         boolean blue = true;
         int x = 5;
         int y = 5;
@@ -156,7 +172,6 @@ class JavaFXMainTest extends ApplicationTest {
 
     @Test
     public void test_updateGrid_Blue_clicks_Red_Twice() {
-        app = new JavaFXMain();
         boolean blue = true;
         int x = 35;
         int y = 24;
@@ -177,9 +192,8 @@ class JavaFXMainTest extends ApplicationTest {
 
     @Test
     public void test_updateGrid_Blue_clicks_Red() {
-        app = new JavaFXMain();
         boolean blue = true;
-        int x = 35;
+        int x = 30;
         int y = 24;
         Platform.runLater(() -> {
             app.updateGrid(blue, player);
