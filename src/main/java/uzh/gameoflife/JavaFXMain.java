@@ -19,6 +19,7 @@ public class JavaFXMain extends Application {
 
     @Override
     public void start(Stage primaryStage){
+
         //setting up new scene
         primaryStage.setScene(new Scene(layout,700,700 ));
         login(); // takes name via login and starts grid
@@ -37,7 +38,7 @@ public class JavaFXMain extends Application {
 
         //reset the layout after the login
         layout.getChildren().clear();
-
+        System.out.println("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
         //setup basic layout including points
         GridPane grid = new GridPane();
         Label label = new Label("Player: " + player.getName() + " has their turn: your color is " + ( blue ? "blue" : "red"));
@@ -46,6 +47,7 @@ public class JavaFXMain extends Application {
         Label points = new Label("Points of Blue Player: " + currentPoints.Blues + " Points of Red Player: " + currentPoints.Reds);
         Label genPoints = new Label("Generations: " + g1.getNumGeneration());
         label.setTextFill(Color.RED);
+
 
         //check if over
         if (g1.isOver()) {
