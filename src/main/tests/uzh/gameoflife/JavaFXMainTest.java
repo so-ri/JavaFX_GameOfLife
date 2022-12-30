@@ -79,6 +79,13 @@ class JavaFXMainTest extends ApplicationTest {
         assertEquals(expected,actual);
     }
 
+
+    /*
+    *
+    *
+    * FOR THE ERROR STATEMENTS
+    *
+    * */
     @Test
     public void test_killOwnCell(){
         boolean blue = false;
@@ -96,7 +103,86 @@ class JavaFXMainTest extends ApplicationTest {
             String expected = "You cant kill your own cell!";
             assertEquals(expected,actual);
         });
+    }
 
+    @Test
+    public void test_updateGrid_Red_clicks_different_Blues() {
+        boolean blue = false;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(23*50+24);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            pane = (Pane) app.grid.getChildren().get(21*50+23);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = "You already killed an opponent cell";
+            assertEquals(expected,actual);
+        });
+    }
+    @Test
+    public void test_updateGrid_Blue_clicks_different_Reds() {
+        boolean blue = true;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(31*50+23);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            pane = (Pane) app.grid.getChildren().get(32*50+23);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = "You already killed an opponent cell";
+            assertEquals(expected,actual);
+        });
+    }
+
+    @Test
+    public void test_updateGrid_Blue_clicks_Dead_twice() {
+        boolean blue = true;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(45*50+40);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            pane = (Pane) app.grid.getChildren().get(45*50+40);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+        });
+    }
+
+    @Test
+    public void test_killOwnCell_blue(){
+        boolean blue = true;
+        int x = 17;
+        int y = 25;
+        Platform.runLater(() -> {
+            app.updateGrid(blue, player);
+
+            //gets Pane at node at (x,y)
+            Pane pane = (Pane) app.grid.getChildren().get(x*50+y);
+            Event.fireEvent(pane, new MouseEvent(MouseEvent.MOUSE_CLICKED, 0,
+                    0, 0, 0, MouseButton.PRIMARY, 1, true, true, true, true,
+                    true, true, true, true, true, true, null));
+            String actual = ((Label) app.layout.getChildren().get(0)).getText();
+            String expected = "You cant kill your own cell!";
+            assertEquals(expected,actual);
+        });
     }
 
     @Test
@@ -135,6 +221,7 @@ class JavaFXMainTest extends ApplicationTest {
             assertEquals(cellStatus.RED,gc.getStatus(x,y));
         });
     }
+
 
     @Test
     public void test_updateGrid_Red_clicks_Blue() {
