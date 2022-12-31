@@ -137,7 +137,7 @@ public class JavaFXMain extends Application {
             }
         }
         grid.setGridLinesVisible(true);
-        layout.getChildren().addAll(label,points, genPoints,grid);
+        layout.getChildren().addAll(label,points,genPoints,grid);
     }
 
     public void login(){
