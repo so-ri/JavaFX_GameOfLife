@@ -8,14 +8,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.controlsfx.control.spreadsheet.Grid;
 import uzh.gameoflife.Cell.CustomTuple;
 import uzh.gameoflife.Cell.cellStatus;
 
 public class JavaFXMain extends Application {
     private final GameController g1 = GameController.getInstance();
-    public final VBox layout = new VBox();
+    protected final VBox layout = new VBox();
 
-    public GridPane grid = new GridPane();
+    protected GridPane grid = new GridPane();
 
 
 

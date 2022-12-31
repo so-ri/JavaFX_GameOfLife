@@ -8,9 +8,16 @@ public class GameBoard {
     private int numGeneration = 0;
     private final Cell[][] board = new Cell[50][50];
 
+    private static GameBoard uniqueInstance;
+
+    //singleton
+    public static synchronized GameBoard getInstance(){
+        if (uniqueInstance == null) uniqueInstance = new GameBoard();
+        return uniqueInstance;
+    }
 
     //fills 2 dimensional Array with DeadCells and a starting Pattern
-    public GameBoard() {
+    private GameBoard() {
         for (Cell[] cellArray : board) Arrays.fill(cellArray, CellFactory.getCell(cellStatus.DEAD));
         createStartingPattern();
     }

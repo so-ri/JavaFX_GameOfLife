@@ -13,7 +13,7 @@ public class GameController {
     private GameController(){ //Singleton Constructor
         players[0] = new Player();
         players[1] = new Player();
-        board = new GameBoard();
+        board = GameBoard.getInstance();
     }
     public static synchronized GameController getInstance(){
         if (uniqueInstance == null) uniqueInstance = new GameController();
