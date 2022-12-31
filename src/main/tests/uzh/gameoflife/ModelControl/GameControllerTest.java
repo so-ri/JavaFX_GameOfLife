@@ -28,7 +28,7 @@ public class GameControllerTest {
 
     @Test
     public void testUpdateNumCells() {
-        controller.updateNumCells(5, 10);
+        GameController.updateNumCells(5, 10);
         CustomTuple points = controller.getCurrentPoints();
         assertEquals(5, points.Reds);
         assertEquals(10, points.Blues);

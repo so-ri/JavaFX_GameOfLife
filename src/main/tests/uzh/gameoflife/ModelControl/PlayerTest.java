@@ -1,6 +1,9 @@
 package uzh.gameoflife.ModelControl;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
@@ -42,28 +45,15 @@ class PlayerTest {
 
     @Test
     public void testCompareTo() {
+        //create 2 players
         Player player1 = new Player();
-        player1.receiveName("Alice");
+        player1.receiveName("bbb");
         Player player2 = new Player();
-        player2.receiveName("Bob");
-        Player player3 = new Player();
-        player3.receiveName("Charlie");
-        /*
-        // Test 1: compare player1 to player2
-        assertTrue(player1.compareTo(player2) < 0);
-        assertTrue(player2.compareTo(player1) > 0);
+        player2.receiveName("aaa");
 
-        // Test 2: compare player2 to player3
-        assertTrue(player2.compareTo(player3) < 0);
-        assertTrue(player3.compareTo(player2) > 0);
-
-        // Test 3: compare player1 to player3
-        assertTrue(player1.compareTo(player3) < 0);
-        assertTrue(player3.compareTo(player1) > 0);
-
-         */
-
-        // Test 4: compare player1 to itself
-        assertTrue(player1.compareTo(player1) == 0);
+        //test whether they are sorted alphabetically
+        Player[] players = {player1, player2};
+        Arrays.sort(players);
+        assertSame("aaa", players[0].getName());
     }
 }

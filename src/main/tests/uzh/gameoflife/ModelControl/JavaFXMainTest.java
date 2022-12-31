@@ -21,7 +21,7 @@ class JavaFXMainTest extends ApplicationTest {
     private Player player;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         app = new JavaFXMain();
         gc = GameController.getInstance();
         player = new Player();
@@ -34,7 +34,7 @@ class JavaFXMainTest extends ApplicationTest {
      *
      *
      * Tests for Game Over
-     *
+     * <p>
      * */
 
 
@@ -68,7 +68,7 @@ class JavaFXMainTest extends ApplicationTest {
      *
      *
      * Tests for Login
-     *
+     * <p>
      * */
 
     @Test
@@ -127,7 +127,7 @@ class JavaFXMainTest extends ApplicationTest {
     *
     *
     * Tests for Input validation
-    *
+    * <p>
     * */
 
 
@@ -238,7 +238,7 @@ class JavaFXMainTest extends ApplicationTest {
     /**
      *
      * For the large if else tree
-     *
+     * <p>
      * */
 
     @Test
