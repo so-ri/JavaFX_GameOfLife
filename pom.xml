@@ -64,7 +64,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>uzh.gameoflife/uzh.gameoflife.JavaFXMain</mainClass>
+                            <mainClass>uzh.gameoflife/uzh.gameoflife.ModelControl.JavaFXMain</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -1,7 +1,6 @@
 package uzh.gameoflife;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import uzh.gameoflife.ModelControl.JavaFXMain;
 
 public class Launcher{
     public static void main(String[] args) {

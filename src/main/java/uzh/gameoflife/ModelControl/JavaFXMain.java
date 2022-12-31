@@ -1,4 +1,4 @@
-package uzh.gameoflife;
+package uzh.gameoflife.ModelControl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +10,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import uzh.gameoflife.Cell.CustomTuple;
 import uzh.gameoflife.Cell.cellStatus;
-import uzh.gameoflife.ModelControl.GameController;
-import uzh.gameoflife.ModelControl.Player;
 
 public class JavaFXMain extends Application {
     private final GameController g1 = GameController.getInstance();

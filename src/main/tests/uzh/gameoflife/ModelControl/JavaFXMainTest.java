@@ -1,4 +1,4 @@
-package uzh.gameoflife;
+package uzh.gameoflife.ModelControl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import uzh.gameoflife.Cell.cellStatus;
-import uzh.gameoflife.ModelControl.GameController;
-import uzh.gameoflife.ModelControl.Player;
 
 
 class JavaFXMainTest extends ApplicationTest {

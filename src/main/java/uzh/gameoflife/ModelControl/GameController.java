@@ -2,7 +2,6 @@ package uzh.gameoflife.ModelControl;
 
 import uzh.gameoflife.Cell.CustomTuple;
 import uzh.gameoflife.Cell.cellStatus;
-import uzh.gameoflife.JavaFXMain;
 
 import java.util.Arrays;
 
