@@ -47,7 +47,7 @@ public class GameController {
         players[1].receiveNumCells(reds);
     }
 
-    public String whoHasWon() {return players[0].hasLost() ? players[1].getName() : players[0].getName();} //if 0 has Lost: return Name of Player 1. else: return Name of Player 1
+    public String whoHasWon() {return players[0].hasLost() ?  players[0].getName() : players[1].getName();} //if 0 has Lost: return Name of Player 1. else: return Name of Player 1
     public boolean isOver(){return (players[0].hasLost() || players[1].hasLost());}
     public cellStatus getStatus(int x, int y){return board.getStatus(x,y);}
     public void changeCellStatus(int x, int y, cellStatus cellStatus){
